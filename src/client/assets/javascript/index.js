@@ -78,11 +78,13 @@ async function handleCreateRace() {
 	renderAt('#race', renderRaceStartView())
 
 	// TODO - Get player_id and track_id from the store
+const {track_id, player_id} = store;
 
 	// const race = TODO - invoke the API call to create the race, then save the result
+const race = await createRace(player_id,track_id);
 
 	// TODO - update the store with the race id
-
+store.race_id
 	// The race has been created, now start the countdown
 	// TODO - call the async function runCountdown
 
@@ -372,7 +374,7 @@ function accelerate(id) {
 	// options parameter provided as defaultFetchOpts
 	// no body or datatype needed for this request
 
-	//const postData ?
+	//const postData
 	return fetch (`${SERVER}/api/races/${id}/accelerate`,{
 		method: 'POST',
 		...defaultFetchOpts(),
