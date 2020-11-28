@@ -110,7 +110,7 @@ function runRace(raceID) {
           } else if (data.status === "finished") {
             clearInterval(raceInterval) // to stop the interval from repeating
             renderAt('#race', resultsView(res.positions)) // to render the results view
-            reslove(res) // resolve the promise
+            reslove(data) // resolve the promise
           }
         })
         .catch(error =>
@@ -356,7 +356,6 @@ function getTracks() {
   // GET request to `${SERVER}/api/tracks`
   return fetch(`${SERVER}/api/tracks`)
     .then(response => response.json())
-    .then(response => console.log(response))
     .catch(error => console.log(error))
 }
 
