@@ -6,9 +6,7 @@ var store = {
   player_id: undefined,
   race_id: undefined,
 }
-function updateStore(state, newState) {
-	store = Object.assign(state, newState);
-}
+
 
 // We need our javascript to wait until the DOM is loaded
 document.addEventListener("DOMContentLoaded", function() {
@@ -197,7 +195,7 @@ async function handleAccelerate() {
   console.log("accelerate button clicked")
   // TODO - Invoke the API call to accelerate
 	await accelerate(store.race_id)
-  
+
 }
 
 // HTML VIEWS ------------------------------------------------
