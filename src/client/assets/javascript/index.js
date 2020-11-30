@@ -1,7 +1,7 @@
 // PROVIDED CODE BELOW (LINES 1 - 80) DO NOT REMOVE
-
+// ORIGIN_ALLOWED=http://localhost:3000 ./bin/server-osx
 // The store will hold all information needed globally
-var store = {
+let store = {
   track_id: undefined,
   player_id: undefined,
   race_id: undefined,
@@ -80,11 +80,15 @@ async function handleCreateRace() {
   // const race = TODO - invoke the API call to create the race, then save the result
   try {
     // render starting UI
-    const trackName = `Track ${store.track_id}`
-    renderAt('#race', renderRaceStartView(trackName))
+    // const trackName = `Track ${store.track_id}`
     // TODO - Get player_id and track_id from the store
     const {track_id, player_id} = store;
+    if(!track_id || !player_id){
+      alert("Please select tract and racer to start the race!");
+      return;
+    }
     const race = await createRace(player_id, track_id);
+    renderAt('#race', renderRaceStartView(race.Track, race.Cars))
     // TODO - update the store with the race id
 
     store.race_id = race.ID - 1;
@@ -115,7 +119,7 @@ function runRace(raceID) {
             renderAt('#race', resultsView(result.positions)) // to render the results view
             reslove(result) // resolve the promise
           }
-        })
+        }).catch(err => console.log(err))
 
     }, 500);
   }).catch(error =>
@@ -192,10 +196,12 @@ function handleSelectTrack(target) {
 }
 
 async function handleAccelerate() {
-  console.log("accelerate button clicked")
-  // TODO - Invoke the API call to accelerate
-	await accelerate(store.race_id)
-
+  try{  console.log("accelerate button clicked")
+    // TODO - Invoke the API call to accelerate
+	       await accelerate(store.race_id)
+       }catch (error) {
+         console.error(error)
+      }
 }
 
 // HTML VIEWS ------------------------------------------------
@@ -217,24 +223,24 @@ function renderRacerCars(racers) {
 	`
 }
 
-function renderRacerCard(racer) {
-  const {
-    id,
-    driver_name,
-    top_speed,
-    acceleration,
-    handling
-  } = racer
-
-  return `
-		<li class="card podracer" id="${id}">
-			<h3>${driver_name}</h3>
-			<p>${top_speed}</p>
-			<p>${acceleration}</p>
-			<p>${handling}</p>
-		</li>
-	`
-}
+// function renderRacerCard(racer) {
+//   const {
+//     id,
+//     driver_name,
+//     top_speed,
+//     acceleration,
+//     handling
+//   } = racer
+//
+//   return `
+// 		<li class="card podracer" id="${id}">
+// 			<h3>${driver_name}</h3>
+// 			<p>${top_speed}</p>
+// 			<p>${acceleration}</p>
+// 			<p>${handling}</p>
+// 		</li>
+// 	`
+// }
 
 function renderTrackCards(tracks) {
   if (!tracks.length) {
@@ -252,18 +258,18 @@ function renderTrackCards(tracks) {
 	`
 }
 
-function renderTrackCard(track) {
-  const {
-    id,
-    name
-  } = track
-
-  return `
-		<li id="${id}" class="card track">
-			<h3>${name}</h3>
-		</li>
-	`
-}
+// function renderTrackCard(track) {
+//   const {
+//     id,
+//     name
+//   } = track
+//
+//   return `
+// 		<li id="${id}" class="card track">
+// 			<h3>${name}</h3>
+// 		</li>
+// 	`
+// }
 
 function renderCountdown(count) {
   return `
@@ -322,7 +328,7 @@ function raceProgress(positions) {
 				</td>
 			</tr>
 		`
-  })
+  }).join("")
 
   return `
 		<main>
@@ -332,6 +338,7 @@ function raceProgress(positions) {
 			</section>
 		</main>
 	`
+  // const raceTracks = position.map
 }
 
 function renderAt(element, html) {
@@ -341,7 +348,44 @@ function renderAt(element, html) {
 }
 
 // ^ Provided code ^ do not remove
+// add players
+const customRacerName = {
+  "Racer 1": "Bazzi",
+  "Racer 2": "Diz",
+  "Racer 3": "Erini",
+  "Racer 4": "Lodumani",
+  "Racer 5": "Mos",
+}
+function renderRacerCard(racer) {
+  const { id, driver_name, top_speed, acceleration, handling } = racer
+  return `
+    <li class="card podracer" id="${id}">
+      <h3>${customRacerName[driver_name]}</h3>
+      <p>${`Top Speed: ${top_speed}`}</p>
+      <p>${`Acceleration: ${acceleration}`}</p>
+      <p>${`Handling: ${handling}`}</p>
+    </li>
+  `
+}
 
+//add tracks
+const customTrackName = {
+  "Track 1": "Seoul",
+  "Track 2": "Tokyo",
+  "Track 3": "Barcelona",
+  "Track 4": "Paris",
+  "Track 5": "NYC",
+  "Track 6": "Seattle",
+}
+
+function renderTrackCard(track){
+  const{id, name} = track
+  return `
+    <li id="${id}" class="card track">
+      <h3>${customTrackName[name]}</h3>
+    </li>
+  `
+}
 
 // API CALLS ------------------------------------------------
 
@@ -360,6 +404,7 @@ function defaultFetchOpts() {
 // TODO - Make a fetch call (with error handling!) to each of the following API endpoints
 
 function getTracks() {
+  defaultFetchOpts()
   // GET request to `${SERVER}/api/tracks`
   return fetch(`${SERVER}/api/tracks`)
     .then(response => response.json())
@@ -367,6 +412,7 @@ function getTracks() {
 }
 
 function getRacers() {
+  defaultFetchOpts()
   // GET request to `${SERVER}/api/cars`
   return fetch(`${SERVER}/api/cars`)
     .then(response => response.json())
@@ -374,8 +420,8 @@ function getRacers() {
 }
 
 function createRace(player_id, track_id) {
-  player_id = parseInt(player_id)
-  track_id = parseInt(track_id)
+  // player_id = player_id
+  // track_id = track_id
   const body = {player_id, track_id }
 
   return fetch(`${SERVER}/api/races`, {
@@ -389,6 +435,7 @@ function createRace(player_id, track_id) {
 }
 
 function getRace(id) {
+  defaultFetchOpts()
   // GET request to `${SERVER}/api/races/${id}`
   return fetch(`${SERVER}/api/races/${id}`)
     .then(res => res.json())
@@ -404,6 +451,13 @@ function startRace(id) {
     // .then(res => res.json())
     .catch(err => console.log("Problem with startRace() request::", err))
 }
+
+//track cars completion
+// const player = positions.find(p =>
+//       p.driver_name.includes(playerName));
+// const completion = player.segment/201;
+//completionPercentage = completion * 100
+
 
 function accelerate(id) {
   // POST request to `${SERVER}/api/races/${id}/accelerate`
