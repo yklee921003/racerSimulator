@@ -352,7 +352,7 @@ function raceProgress(positions) {
       </div>
     </div>
     `
-  }).join('';)
+  }).join('')
 }
 
 function renderAt(element, html) {
