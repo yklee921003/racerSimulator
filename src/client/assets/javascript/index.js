@@ -313,6 +313,7 @@ function resultsView(positions) {
 }
 
 function raceProgress(positions) {
+  const racers = positions.map(p => p.driver_name);
   let userPlayer = positions.find(e => e.id === parseInt(store.player_id))
   console.log("userPlayer::::::", userPlayer);
   userPlayer.driver_name += " (you)"
@@ -338,7 +339,20 @@ function raceProgress(positions) {
 			</section>
 		</main>
 	`
-  // const raceTracks = position.map
+  const raceTracks = racers.map((r) => {
+    //There are 201 segments in the race and kept track length as 25nh
+    const completion = player.segment/201;
+    return `
+    <div class = "racetrack">
+      <div class= "race-car" style="bottom:${completion * 25}vh">
+      </div>
+      <div class="racer-name">
+        <div>${r}</div>
+        <div>${Math.round(completion * 100)} % </div>
+      </div>
+    </div>
+    `
+  }).join('';)
 }
 
 function renderAt(element, html) {
