@@ -95,6 +95,9 @@ footer {
   background-color: black;
 }
 
+#youcolor{
+  color: blue;
+}
 /* -------------------  TABLET  --------------------- */
 @media (min-width: 768px) {
   header {

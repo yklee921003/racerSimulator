@@ -313,54 +313,93 @@ function resultsView(positions) {
 }
 
 function raceProgress(positions) {
+  const raceTracks = positions.map((r) => {
+    // There are 201 segments in the race and kept track length as 25vh
+    const completion = r.segment/201;
+    // function youColor(positions){
+    //   document.getElementById("youcolor").style.color = 'blue'
+    // }
+      if (r.id === store.player_id){
+    return`
+    <div class="racetrack">
+      <div class="race-car style="bottom:${completion * 25}vh">
+      <img>
+      </div>
+      <div class="racer-name">
+        <div id="youcolor">
+        ${customRacerName[r.driver_name]}
+
+        </div>
+        <div>${Math.round(completion * 100)}%</div>
+      </div>
+    </div>
+    `
+  }
+  return`
+  <div class="racetrack">
+    <div class="race-car style="bottom:${completion * 25}vh">
+    <img>
+    </div>
+    <div class="racer-name">
+      <div>
+      ${customRacerName[r.driver_name]}
+      </div>
+      <div>${Math.round(completion * 100)}%</div>
+    </div>
+  </div>
+  `
+  }).join('');
+
+
+
+
+
+
+
   const racers = positions.map(p => p.driver_name);
   let userPlayer = positions.find(e => e.id === parseInt(store.player_id))
   console.log("userPlayer::::::", userPlayer);
-  userPlayer.driver_name += " (you)"
 
-  // const raceTracks = racers.map((r) => {
-  //   //There are 201 segments in the race and kept track length as 25nh
-  //   const completion = player.segment/201;
-  //   return `
-  //   <div class = "racetrack">
-  //     <div class= "race-car" style="bottom:${completion * 25}vh">
-  //     </div>
-  //     <div class="racer-name">
-  //       <div>${r}</div>
-  //       <div>${Math.round(completion * 100)} % </div>
-  //     </div>
-  //   </div>
-  //   `
-  // }).join('')
 
-userPlayer.driver_name += " (you)"
-// let userPlayer = positions.find(e => e.id === parseInt(store.player_id))
+
   positions = positions.sort((a, b) => (a.segment > b.segment) ? -1 : 1)
   let count = 1
 
   const results = positions.map(p => {
+    if (p.id === store.player_id){
     return `
-			<tr>
-				<td>
-					<h3>${count++} - ${customRacerName[p.driver_name] }</h3>
-				</td>
         <td>
-          <h3>${positions.find(e => e.id === ${customRacerName[p.driver_name]})}</h3>
+          <h3>${count++} - ${customRacerName[p.driver_name]}(you)</h3>
+        </td>  
+        `
+    }
+    return `
+      <tr>
+				<td>
+					<h3>${count++} - ${customRacerName[p.driver_name]}</h3>
+				</td>
 
-        </td>
 			</tr>
 		`
   }).join("")
+
+
+
+
+
 
   return `
 		<main>
 			<h3>Leaderboard</h3>
 			<section id="leaderBoard" class="leaderBoard">
-
-				${results}
-
-			</section>
-		</main>
+      <div class="progress-section">
+              ${results}
+            </div>
+            <div class="progress-racetracks">
+              ${raceTracks}
+            </div>
+          </section>
+        </main>
 	`
 
 }
