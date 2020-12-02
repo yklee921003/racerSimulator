@@ -316,11 +316,9 @@ function raceProgress(positions) {
   const raceTracks = positions.map((r) => {
     // There are 201 segments in the race and kept track length as 25vh
     const completion = r.segment/201;
-    // function youColor(positions){
-    //   document.getElementById("youcolor").style.color = 'blue'
-    // }
       if (r.id === store.player_id){
     return`
+  <section class="raceTrack">
     <div class="racetrack">
       <div class="race-car style="bottom:${completion * 25}vh">
       <img>
@@ -333,9 +331,11 @@ function raceProgress(positions) {
         <div>${Math.round(completion * 100)}%</div>
       </div>
     </div>
+  <section>
     `
   }
   return`
+  <section class="raceTrack">
   <div class="racetrack">
     <div class="race-car style="bottom:${completion * 25}vh">
     <img>
@@ -347,12 +347,9 @@ function raceProgress(positions) {
       <div>${Math.round(completion * 100)}%</div>
     </div>
   </div>
+<section >
   `
   }).join('');
-
-
-
-
 
 
 
@@ -370,7 +367,7 @@ function raceProgress(positions) {
     return `
         <td>
           <h3>${count++} - ${customRacerName[p.driver_name]}(you)</h3>
-        </td>  
+        </td>
         `
     }
     return `
@@ -382,10 +379,6 @@ function raceProgress(positions) {
 			</tr>
 		`
   }).join("")
-
-
-
-
 
 
   return `
@@ -413,11 +406,11 @@ function renderAt(element, html) {
 // ^ Provided code ^ do not remove
 // add players
 const customRacerName = {
-  "Racer 1": "Bazzi",
-  "Racer 2": "Diz",
-  "Racer 3": "Erini",
-  "Racer 4": "Lodumani",
-  "Racer 5": "Mos",
+  "Racer 1": "Dog",
+  "Racer 2": "Cat",
+  "Racer 3": "Hippo",
+  "Racer 4": "Horse",
+  "Racer 5": "Frog",
 }
 function renderRacerCard(racer) {
   const { id, driver_name, top_speed, acceleration, handling } = racer
