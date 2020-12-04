@@ -28,7 +28,13 @@ section#accelerate button {
     font-weight: bolder;
     font-size: 70px;
 }
+.leaderBoard{
+  display: flex;
 
+}
+.progress-racetracks{
+  display: flex;
+}
 
 
 

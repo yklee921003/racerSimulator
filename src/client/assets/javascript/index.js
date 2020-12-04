@@ -331,7 +331,7 @@ function raceProgress(positions) {
         <div>${Math.round(completion * 100)}%</div>
       </div>
     </div>
-  <section>
+  </section>
     `
   }
   return`
@@ -347,7 +347,7 @@ function raceProgress(positions) {
       <div>${Math.round(completion * 100)}%</div>
     </div>
   </div>
-<section >
+</section >
   `
   }).join('');
 
