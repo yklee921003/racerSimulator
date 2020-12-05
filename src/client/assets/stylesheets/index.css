@@ -99,24 +99,8 @@ footer {
   color: blue;
 }
 
-.racetrack {
-  position: relative;
-  border: 2px red;
-  border-style: none solid;
-  width: 70px;
-  min-height: 30vh;
-  display: flex;
-  justify-content: center;
-}
-.race-car{
-  position: absolute;
-}
-.racer-name{
-  position: absolute;
-  bottom: -5vh;
-  font-size: 12px;
-  text-align: center;
-}
+
+
 /* -------------------  TABLET  --------------------- */
 @media (min-width: 768px) {
   header {

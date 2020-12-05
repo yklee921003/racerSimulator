@@ -35,6 +35,31 @@ section#accelerate button {
 .progress-racetracks{
   display: flex;
 }
+.racetrack {
+  position: relative;
+  border: 2px red;
+  border-style: none solid;
+  width: 45px;
+  min-height: 30vh;
+  display: flex;
+  justify-content: center;
+
+}
+
+.race-car {
+  position: absolute;
+  background-image: url("/Users/rojames/Desktop/racerSim/img/Frog.png");
+  height: 50px;
+  width: 40px;
+  background-size: cover;
+}
+
+.racer-name {
+  position: absolute;
+  bottom: -5vh;
+  font-size: 12px;
+  text-align: center;
+}
 
 
 

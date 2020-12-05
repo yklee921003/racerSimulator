@@ -35,10 +35,18 @@ async function onPageLoad() {
 
 function setupClickHandlers() {
   document.addEventListener('click', function(event) {
+    let parent = event.target.parentElement
     const {
       target
     } = event
 
+    if(parent.matches('.card.track')){
+      handleSelectTrack(parent)
+    }
+
+    if(parent.matches('.card.podracer')){
+      handleSelectPodRacer(parent)
+    }
     // Race track form field
     if (target.matches('.card.track')) {
       handleSelectTrack(target)
@@ -338,7 +346,7 @@ function raceProgress(positions) {
   <section class="raceTrack">
   <div class="racetrack">
     <div class="race-car style="bottom:${completion * 25}vh">
-    <img>
+    <img url()>
     </div>
     <div class="racer-name">
       <div>
@@ -347,7 +355,7 @@ function raceProgress(positions) {
       <div>${Math.round(completion * 100)}%</div>
     </div>
   </div>
-</section >
+  </section >
   `
   }).join('');
 
