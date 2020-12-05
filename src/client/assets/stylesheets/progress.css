@@ -31,32 +31,37 @@ section#accelerate button {
 .leaderBoard{
   display: flex;
 
+
 }
 .progress-racetracks{
   display: flex;
 }
 .racetrack {
   position: relative;
-  border: 2px red;
+  border: 2px blue;
   border-style: none solid;
-  width: 45px;
+  width: 70px;
+
   min-height: 30vh;
   display: flex;
+
   justify-content: center;
+
 
 }
 
 .race-car {
   position: absolute;
-  background-image: url("/Users/rojames/Desktop/racerSim/img/Frog.png");
+  background-image: url("img/car.jpg");
   height: 50px;
-  width: 40px;
+  width: 30px;
   background-size: cover;
 }
 
 .racer-name {
   position: absolute;
   bottom: -5vh;
+
   font-size: 12px;
   text-align: center;
 }
