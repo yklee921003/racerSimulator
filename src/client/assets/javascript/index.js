@@ -324,38 +324,36 @@ function raceProgress(positions) {
   const raceTracks = positions.map((r) => {
     // There are 201 segments in the race and kept track length as 25vh
     const completion = r.segment/201;
-      if (r.id === store.player_id){
+    if (r.id === store.player_id){
     return`
-  <section class="raceTrack">
-    <div class="racetrack">
-      <div class="race-car style="bottom:${completion * 25}vh">
-      <img>
-      </div>
-      <div class="racer-name">
-        <div id="youcolor">
-        ${customRacerName[r.driver_name]}
 
-        </div>
-        <div>${Math.round(completion * 100)}%</div>
+    <div class="racetrack">
+    <div class="race-car style = " bottom:${completion * 25}vh"></div>
+    <div class="racer-name">
+      <div id="youcolor">
+      ${customRacerName[r.driver_name]}
       </div>
+      <div>${Math.round(completion * 100)}%</div>
+
     </div>
-  </section>
+
+    </div>
+
     `
-  }
+    }
   return`
-  <section class="raceTrack">
+
   <div class="racetrack">
-    <div class="race-car style="bottom:${completion * 25}vh">
-    <img url()>
-    </div>
+    <div class="race-car style="bottom:${completion * 25}vh"></div>
     <div class="racer-name">
       <div>
       ${customRacerName[r.driver_name]}
       </div>
       <div>${Math.round(completion * 100)}%</div>
+
     </div>
   </div>
-  </section >
+
   `
   }).join('');
 
