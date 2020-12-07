@@ -328,7 +328,7 @@ function raceProgress(positions) {
     return`
 
     <div class="racetrack">
-    <div class="race-car style = " bottom:${completion * 25}vh"></div>
+    <div class="race-car" style = " bottom:${completion * 25}vh"></div>
     <div class="racer-name">
       <div id="youcolor">
       ${customRacerName[r.driver_name]}
@@ -344,7 +344,7 @@ function raceProgress(positions) {
   return`
 
   <div class="racetrack">
-    <div class="race-car style="bottom:${completion * 25}vh"></div>
+    <div class="race-car" style="bottom:${completion * 25}vh"></div>
     <div class="racer-name">
       <div>
       ${customRacerName[r.driver_name]}
